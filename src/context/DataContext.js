@@ -19,23 +19,35 @@ export const DataProvider = ({ children }) => {
 
       case "PRODUCT_NAME":
         if (state.product_name === 0) {
-          const sortedArr = state.data.sort(
-            (a, b) =>
-              a.product_name.charAt(0).toLowerCase() -
-              b.product_name.charAt(0).toLowerCase()
-          );
-          return { ...state, data: sortedArr, product_name: 1 };
+          const sortedArr = state.data.sort((a, b) => {
+            const firstLetterA = a.product_name.charAt(0).toLowerCase();
+            const firstLetterB = b.product_name.charAt(0).toLowerCase();
+
+            if (firstLetterA < firstLetterB) {
+              return -1;
+            } else if (firstLetterA > firstLetterB) {
+              return 1;
+            } else {
+              return a.localeCompare(b);
+            }
+          });
+          return { ...state, sortedArr: sortedArr, product_name: 1 };
         } else if (state.product_name === 1) {
-          const sortedArr = state.data.sort(
-            (a, b) =>
-              b.product_name.charAt(0).toLowerCase() -
-              a.product_name.charAt(0).toLowerCase()
-          );
-          return { ...state, data: sortedArr, product_name: 2 };
-        } else if (state.product_name === 2) {
-          return { ...state, data: snacks, product_name: 0 };
+          const sortedArr = state.data.sort((a, b) => {
+            const firstLetterA = a.product_name.charAt(0).toLowerCase();
+            const firstLetterB = b.product_name.charAt(0).toLowerCase();
+
+            if (firstLetterA < firstLetterB) {
+              return 1;
+            } else if (firstLetterA > firstLetterB) {
+              return -1;
+            } else {
+              return a.localeCompare(b);
+            }
+          });
+          return { ...state, sortedArr: sortedArr, product_name: 2 };
         } else {
-          return state;
+          return { ...state, data: snacks, product_name: 0 };
         }
 
       case "PRODUCT_WEIGHT":
