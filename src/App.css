@@ -1,8 +1,18 @@
 .App {
   text-align: center;
+  user-select: none;
 }
 
-.nav-bar {
-  text-align: right;
-  padding: 0.5rem 1.2rem;
+.table-whole {
+  border: 1px solid gray;
+  margin: 2rem auto;
+}
+
+tr {
+  background-color: rgba(89, 89, 89, 0.486);
+  font-size: 1.5rem;
+}
+
+th {
+  cursor: pointer;
 }
