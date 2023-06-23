@@ -94,7 +94,37 @@ export const DataProvider = ({ children }) => {
         }
 
       case "INGREDIENT":
-        return { ...state };
+        if (state.ingredients === 0) {
+          const sortedArr = state.data.sort((a, b) => {
+            const firstLetterA = a.ingredients[0].charAt(0).toLowerCase();
+            const firstLetterB = b.ingredients[0].charAt(0).toLowerCase();
+
+            if (firstLetterA < firstLetterB) {
+              return -1;
+            } else if (firstLetterA > firstLetterB) {
+              return 1;
+            } else {
+              return a.localeCompare(b);
+            }
+          });
+          return { ...state, sortedArr: sortedArr, ingredients: 1 };
+        } else if (state.ingredients === 1) {
+          const sortedArr = state.data.sort((a, b) => {
+            const firstLetterA = a.ingredients[0].charAt(0).toLowerCase();
+            const firstLetterB = b.ingredients[0].charAt(0).toLowerCase();
+
+            if (firstLetterA < firstLetterB) {
+              return 1;
+            } else if (firstLetterA > firstLetterB) {
+              return -1;
+            } else {
+              return a.localeCompare(b);
+            }
+          });
+          return { ...state, sortedArr: sortedArr, ingredients: 2 };
+        } else {
+          return { ...state, data: snacks, ingredients: 0 };
+        }
 
       default:
         console.log("Error: Something is wrong");
@@ -108,6 +138,7 @@ export const DataProvider = ({ children }) => {
     price: 0,
     calories: 0,
     product_weight: 0,
+    ingredients: 0,
   });
   return (
     <DataContext.Provider value={{ state, dispatch }}>
