@@ -17,6 +17,19 @@ export const DataProvider = ({ children }) => {
           return { ...state, data: snacks };
         }
 
+      case "ID":
+        if (state.id === 0) {
+          const sortedArr = state.data.sort((a, b) => a.id - b.id);
+          return { ...state, data: sortedArr, id: 1 };
+        } else if (state.id === 1) {
+          const sortedArr = state.data.sort((a, b) => b.id - a.id);
+          return { ...state, data: sortedArr, id: 2 };
+        } else if (state.id === 2) {
+          return { ...state, data: snacks, id: 0 };
+        } else {
+          return state;
+        }
+
       case "PRODUCT_NAME":
         if (state.product_name === 0) {
           const sortedArr = state.data.sort((a, b) => {
@@ -134,6 +147,7 @@ export const DataProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducerFunction, {
     data: [...snacks],
+    id: 0,
     product_name: 0,
     price: 0,
     calories: 0,

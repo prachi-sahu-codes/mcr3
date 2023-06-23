@@ -13,7 +13,7 @@ export const Home = () => {
       />
       <table className="table-whole">
         <tr>
-          <th>ID</th>
+          <th onClick={() => dispatch({ type: "ID" })}>ID</th>
           <th onClick={() => dispatch({ type: "PRODUCT_NAME" })}>
             Product Name
           </th>
